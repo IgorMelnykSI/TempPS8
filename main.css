@@ -32,7 +32,7 @@ td {
 }
 
 .red {
-  background-color: #F44336;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.2) 88.02%, rgba(0, 0, 0, 0.2) 100%), #0066FF;
 }
 
 .red:hover {
@@ -40,7 +40,7 @@ td {
 }
 
 .yellow {
-  background-color: #FFC107;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.2) 85.42%, rgba(0, 0, 0, 0.2) 100%), #FFB800;
 }
 
 .yellow:hover {
