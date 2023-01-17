@@ -76,16 +76,33 @@ function checkForWin(player) {
     for (let j = 0; j < 7; j++) {
       for (let j = 0; j < 4; j++) {
         if (table.rows[i].cells[j].children[0] &&
-        table.rows[i].cells[j].children[0].classList.contains(player) &&
-        table.rows[i + 1].cells[j].children[0] &&
-        table.rows[i + 1].cells[j].children[0].classList.contains(player) &&
-        table.rows[i + 2].cells[j].children[0] &&
-        table.rows[i + 2].cells[j].children[0].classList.contains(player) &&
-        table.rows[i + 3].cells[j].children[0] &&
-        table.rows[i + 3].cells[j].children[0].classList.contains(player))
+            table.rows[i].cells[j].children[0].classList.contains(player) &&
+            table.rows[i + 1].cells[j].children[0] &&
+            table.rows[i + 1].cells[j].children[0].classList.contains(player) &&
+            table.rows[i + 2].cells[j].children[0] &&
+            table.rows[i + 2].cells[j].children[0].classList.contains(player) &&
+            table.rows[i + 3].cells[j].children[0] &&
+            table.rows[i + 3].cells[j].children[0].classList.contains(player))
           alert(`Player ${player} wins!`);
-          return;
+        return;
       }
     }
-   }
- }
+  }
+
+  // Check for diagonal win
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 4; j++) {
+      if (table.rows[i].cells[j].children[0] &&
+          table.rows[i].cells[j].children[0].classList.contains(player) &&
+          table.rows[i + 1].cells[j + 1].children[0] &&
+          table.rows[i + 1].cells[j + 1].children[0].classList.contains(player) &&
+          table.rows[i + 2].cells[j + 2].children[0] &&
+          table.rows[i + 2].cells[j + 2].children[0].classList.contains(player) &&
+          table.rows[i + 3].cells[j + 3].children[0] &&
+          table.rows[i + 3].cells[j + 3].children[0].classList.contains(player)) {
+        alert(`Player ${player} wins!`);
+        return;
+      }
+    }
+  }
+}
