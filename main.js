@@ -1,8 +1,6 @@
 const table = document.querySelector("table");
 const cells = document.querySelectorAll("td");
-let currentPlayer = "red";
-
-let lines = [];
+let currentPlayer = "blue";
 
 let tab = [];
 
@@ -10,18 +8,6 @@ for (let i = 0; i<7; i++){
 	tab.push([]);
 }
 
-function a() {
-  alert('aaaa');
-}
- 
-console.log(tab);
-
-console.log(tab[4]);
-
-console.log(tab[4]);
-console.log(tab[0]);
-console.log(tab[4].length);
-console.log(tab);
 
 // Add click event listener to table cells
 cells.forEach(function(cell) {
@@ -35,7 +21,7 @@ cells.forEach(function(cell) {
       // Check for a win
       checkForWin(currentPlayer);
       // Switch to the other player
-      currentPlayer = currentPlayer === "red" ? "yellow" : "red";
+      currentPlayer = currentPlayer === "blue" ? "yellow" : "blue";
     }
   });
 });
