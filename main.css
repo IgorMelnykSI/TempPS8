@@ -34,16 +34,19 @@
 }
 
 table {
-  border-collapse: collapse;
-  margin: 0 auto;
+  /*border-collapse: collapse;
+  margin: 0 auto;*/
   border-radius: 20px;
+  background-color: #EEEEEE;
+  padding: 5px;
 }
 
 td {
   width: 50px;
   height: 50px;
-  border: 2px solid #3E3E3E;
-  background-color: #E2E2E2;
+  /*border: 2px solid #3E3E3E;*/
+  background-color: #fff;
+  border-radius: 50%;
 }
 
 .piece {
@@ -57,7 +60,7 @@ td {
 }
 
 .blue:hover {
-  background-color: #FF5252;
+  background-color: #0056FF;
 }
 
 .yellow {
@@ -69,7 +72,7 @@ td {
 }
 
 .timer{
-  font-family: Calibri;
+  font-family: Irish Grover;
   font-weight: bold;
 
 }
