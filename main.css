@@ -5,11 +5,31 @@
   border-radius:100%;
 }
 
+
+
 .grid-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 80vh;
+  min-width: 200px;
+}
+
+.timerContainer{
+  background-color: #A3E4D7;
+  display: flex;
+  align-self: center;
+  flex-direction: row;
+  justify-content: space-evenly;
+  border-radius: 100px;
+  height: 10vh;
+  width: 90vw;
+}
+
+.bottomInfo{
+  width: 100vw;
+  display: flex;
+  justify-content: center;
 }
 
 table {
@@ -46,3 +66,11 @@ td {
 .yellow:hover {
   background-color: #FFD54F;
 }
+
+.timer{
+  font-family: Calibri;
+  font-weight: bold;
+
+}
+
+

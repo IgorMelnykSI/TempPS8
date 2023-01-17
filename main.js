@@ -2,11 +2,55 @@ const table = document.querySelector("table");
 const cells = document.querySelectorAll("td");
 let currentPlayer = "blue";
 
+let timer1 = document.getElementById("ourTimer");
+let timer2 = document.getElementById("oppTimer");
+
+let tim1 = 300;
+let tim2 = 300;
+
+
+setInterval(() => {
+  timerManager(currentPlayer);
+}, 1000);
+
+
+function timerManager(player){
+
+  if(tim1 == 0 || tim2==0){
+    alert("Time Over");
+  }
+
+  if(player==="blue"){
+    tim1--;
+    timer1.innerText = "Timer : "+displayTime(tim1);
+  }
+  else{
+    tim2--;
+    timer2.innerText = "Opponent Timer : "+displayTime(tim2);
+  }
+
+}
+
+function displayTime(sec){
+  const minutes = Math.floor(sec / 60);
+  const seconds = sec % 60;
+
+  return minutes+":"+seconds;
+
+}
+
+
+
+
+
 let tab = [];
 
 for (let i = 0; i<7; i++){
 	tab.push([]);
 }
+
+
+
 
 
 // Add click event listener to table cells
