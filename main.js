@@ -63,7 +63,8 @@ cells.forEach(function(cell) {
       // Add a piece to the empty cell
       addPiece(emptyCell, currentPlayer);
       // Check for a win
-      checkForWin(currentPlayer);
+      //checkForWin(currentPlayer);
+      checkCell(emptyCell, currentPlayer);
       // Switch to the other player
       currentPlayer = currentPlayer === "blue" ? "yellow" : "blue";
     }
@@ -72,15 +73,69 @@ cells.forEach(function(cell) {
 
 function findEmptyCell(cell) {
   let column = cell.cellIndex;
-  tab[column].push(1);
+  let currentColor = currentPlayer === "blue" ? 1 : 0;
+  tab[column].push(currentColor);
   if(tab[column].length>6) return;
   return table.rows[7 - tab[column].length -1].cells[column];
 }
 
 function addPiece(cell, player) {
-  const piece = document.createElement("div");
-  piece.classList.add("piece", player);
-  cell.appendChild(piece);
+  cell.classList.add( player );
+}
+
+function checkCell(cell, player){
+  
+  let column = cell.cellIndex;
+  let line = tab[column].length -1;
+  let currentCell = tab[column][line]; // 1 or 0
+  
+  console.log("line : " + line);
+  console.log("colonne : " + column);
+  console.log("cell : " + currentCell);
+  console.log(tab);
+  
+  // horizontal
+  let sumLeft = 0;
+  for (let i = 1; i<4; i++){
+    let index = column - i;
+    if (index > -1 && currentCell === tab[index][line] ) {
+      sumLeft += 1;
+    }
+    else {
+      break;
+    }
+  }
+  console.log("sumLeft" + sumLeft);
+  
+  let sumRight = 0;
+  for (let i = 1; i<4; i++){
+    let index = column + i;
+    if (index < 7 && currentCell === tab[index][line] ) {
+      sumLeft += 1;
+    }
+    else {
+      break;
+    }
+  }
+  
+  console.log("sumRight" + sumRight)
+  
+  if ( (sumLeft + sumRight) === 3 ) {alert(`Player ${player} wins!`); return;}
+  
+  // vertical
+  let bottomSum = 0;
+  for (let i = 1; i<4; i++){
+    let index = line - i;
+    if (index > -1 && currentCell === tab[column][index] ) {
+      bottomSum += 1;
+    }
+    else {
+      break;
+    }
+  }
+  
+  if ( bottomSum === 3 ) {alert(`Player ${player} wins!`); return;}
+  
 }
 
 function checkForWin(player) {
