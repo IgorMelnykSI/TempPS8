@@ -18,12 +18,13 @@
 .timerContainer{
   background-color: #A3E4D7;
   display: flex;
-  align-self: center;
   flex-direction: row;
   justify-content: space-evenly;
+  align-items: center;
   border-radius: 100px;
   height: 10vh;
-  width: 90vw;
+  width: 40vw;
+  min-width: 50px;
 }
 
 .bottomInfo{
