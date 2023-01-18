@@ -101,7 +101,6 @@ function checkCell(cell, player) {
         }
     }
 
-
     if ((sumLeft + sumRight) >= 3) {
         alert(`Player ${player} wins!`);
         return;
@@ -120,8 +119,57 @@ function checkCell(cell, player) {
 
     if (bottomSum === 3) {
         alert(`Player ${player} wins!`);
+        return;
     }
 
+    // diagonal
+    let sumUpRight = 0;
+    for (let i = 1; i < 4; i++) {
+        let indexLine = line + i;
+        let indexColumn = column + i;
+        if (indexLine < 6 && indexColumn < 7 && currentCell === tab[indexColumn][indexLine]) {
+            sumUpRight += 1;
+        } else {
+            break;
+        }
+    }
+
+    let sumDownLeft = 0;
+    for (let i = 1; i < 4; i++) {
+        let indexLine = line - i;
+        let indexColumn = column - i;
+        if (indexLine > -1 && indexColumn > -1 && currentCell === tab[indexColumn][indexLine]) {
+            sumDownLeft += 1;
+        } else {
+            break;
+        }
+    }
+
+    if ( (sumUpRight + sumDownLeft) >= 3) {alert(`Player ${player} wins!`); return;}
+
+    let sumUpLeft = 0;
+    for (let i = 1; i < 4; i++) {
+        let indexLine = line + i;
+        let indexColumn = column - i;
+        if (indexLine < 6 && indexColumn > -1 && currentCell === tab[indexColumn][indexLine]) {
+            sumUpLeft += 1;
+        } else {
+            break;
+        }
+    }
+
+    let sumDownRight = 0;
+    for (let i = 1; i < 4; i++) {
+        let indexLine = line - i;
+        let indexColumn = column + i;
+        if (indexLine > -1 && indexColumn < 7 && currentCell === tab[indexColumn][indexLine]) {
+            sumDownRight += 1;
+        } else {
+            break;
+        }
+    }
+
+    if ( (sumUpLeft + sumDownRight) >= 3) {alert(`Player ${player} wins!`);}
 }
 
 function checkForWin(player) {
