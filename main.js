@@ -80,11 +80,6 @@ function checkCell(cell, player) {
     let line = tab[column].length - 1;
     let currentCell = tab[column][line]; // 1 or 0
 
-    console.log("line : " + line);
-    console.log("colonne : " + column);
-    console.log("cell : " + currentCell);
-    console.log(tab);
-
     // horizontal
     let sumLeft = 0;
     for (let i = 1; i < 4; i++) {
@@ -95,7 +90,6 @@ function checkCell(cell, player) {
             break;
         }
     }
-    console.log("sumLeft" + sumLeft);
 
     let sumRight = 0;
     for (let i = 1; i < 4; i++) {
@@ -107,9 +101,8 @@ function checkCell(cell, player) {
         }
     }
 
-    console.log("sumRight" + sumRight)
 
-    if ((sumLeft + sumRight) === 3) {
+    if ((sumLeft + sumRight) >= 3) {
         alert(`Player ${player} wins!`);
         return;
     }
