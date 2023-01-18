@@ -10,184 +10,153 @@ let tim2 = 300;
 
 
 setInterval(() => {
-  timerManager(currentPlayer);
+    timerManager(currentPlayer);
 }, 1000);
 
 
-function timerManager(player){
+function timerManager(player) {
 
-  if(tim1 == 0 || tim2==0){
-    alert("Time Over");
-  }
+    if (tim1 === 0 || tim2 === 0) {
+        alert("Time Over");
+    }
 
-  if(player==="blue"){
-    tim1--;
-    timer1.innerText = "Timer : "+displayTime(tim1);
-  }
-  else{
-    tim2--;
-    timer2.innerText = "Opponent Timer : "+displayTime(tim2);
-  }
-
-}
-
-function displayTime(sec){
-  const minutes = Math.floor(sec / 60);
-  const seconds = sec % 60;
-
-  return minutes+":"+seconds;
+    if (player === "blue") {
+        tim1--;
+        timer1.innerText = "Timer : " + displayTime(tim1);
+    } else {
+        tim2--;
+        timer2.innerText = "Opponent Timer : " + displayTime(tim2);
+    }
 
 }
 
-
-
+function displayTime(sec) {
+    const minutes = Math.floor(sec / 60);
+    const seconds = sec % 60;
+    return minutes + ":" + seconds;
+}
 
 
 let tab = [];
 
-for (let i = 0; i<7; i++){
-	tab.push([]);
+for (let i = 0; i < 7; i++) {
+    tab.push([]);
 }
-
-
-
 
 
 // Add click event listener to table cells
-cells.forEach(function(cell) {
-  cell.addEventListener("click", function() {
-    // Find the first empty cell in the column that was clicked
-    const emptyCell = findEmptyCell(cell);
+cells.forEach(function (cell) {
+    cell.addEventListener("click", function () {
+        // Find the first empty cell in the column that was clicked
+        const emptyCell = findEmptyCell(cell);
 
-    if (emptyCell) {
-      // Add a piece to the empty cell
-      addPiece(emptyCell, currentPlayer);
-      // Check for a win
-      //checkForWin(currentPlayer);
-      checkCell(emptyCell, currentPlayer);
-      // Switch to the other player
-      currentPlayer = currentPlayer === "blue" ? "yellow" : "blue";
-    }
-  });
+        if (emptyCell) {
+            // Add a piece to the empty cell
+            addPiece(emptyCell, currentPlayer);
+            // Check for a win
+            //checkForWin(currentPlayer);
+            checkCell(emptyCell, currentPlayer);
+            // Switch to the other player
+            currentPlayer = currentPlayer === "blue" ? "yellow" : "blue";
+        }
+    });
 });
 
 function findEmptyCell(cell) {
-  let column = cell.cellIndex;
-  let currentColor = currentPlayer === "blue" ? 1 : 0;
-  tab[column].push(currentColor);
-  if(tab[column].length>6) return;
-  return table.rows[7 - tab[column].length -1].cells[column];
+    let column = cell.cellIndex;
+    let currentColor = currentPlayer === "blue" ? 1 : 0;
+    tab[column].push(currentColor);
+    if (tab[column].length > 6) return;
+    return table.rows[7 - tab[column].length - 1].cells[column];
 }
 
 function addPiece(cell, player) {
-  cell.classList.add( player );
+    cell.classList.add(player);
 }
 
-function checkCell(cell, player){
-  
-  let column = cell.cellIndex;
-  let line = tab[column].length -1;
-  let currentCell = tab[column][line]; // 1 or 0
-  
-  console.log("line : " + line);
-  console.log("colonne : " + column);
-  console.log("cell : " + currentCell);
-  console.log(tab);
-  
-  // horizontal
-  let sumLeft = 0;
-  for (let i = 1; i<4; i++){
-    let index = column - i;
-    if (index > -1 && currentCell === tab[index][line] ) {
-      sumLeft += 1;
+function checkCell(cell, player) {
+
+    let column = cell.cellIndex;
+    let line = tab[column].length - 1;
+    let currentCell = tab[column][line]; // 1 or 0
+
+    console.log("line : " + line);
+    console.log("colonne : " + column);
+    console.log("cell : " + currentCell);
+    console.log(tab);
+
+    // horizontal
+    let sumLeft = 0;
+    for (let i = 1; i < 4; i++) {
+        let index = column - i;
+        if (index > -1 && currentCell === tab[index][line]) {
+            sumLeft += 1;
+        } else {
+            break;
+        }
     }
-    else {
-      break;
+    console.log("sumLeft" + sumLeft);
+
+    let sumRight = 0;
+    for (let i = 1; i < 4; i++) {
+        let index = column + i;
+        if (index < 7 && currentCell === tab[index][line]) {
+            sumLeft += 1;
+        } else {
+            break;
+        }
     }
-  }
-  console.log("sumLeft" + sumLeft);
-  
-  let sumRight = 0;
-  for (let i = 1; i<4; i++){
-    let index = column + i;
-    if (index < 7 && currentCell === tab[index][line] ) {
-      sumLeft += 1;
+
+    console.log("sumRight" + sumRight)
+
+    if ((sumLeft + sumRight) === 3) {
+        alert(`Player ${player} wins!`);
+        return;
     }
-    else {
-      break;
+
+    // vertical
+    let bottomSum = 0;
+    for (let i = 1; i < 4; i++) {
+        let index = line - i;
+        if (index > -1 && currentCell === tab[column][index]) {
+            bottomSum += 1;
+        } else {
+            break;
+        }
     }
-  }
-  
-  console.log("sumRight" + sumRight)
-  
-  if ( (sumLeft + sumRight) === 3 ) {alert(`Player ${player} wins!`); return;}
-  
-  // vertical
-  let bottomSum = 0;
-  for (let i = 1; i<4; i++){
-    let index = line - i;
-    if (index > -1 && currentCell === tab[column][index] ) {
-      bottomSum += 1;
+
+    if (bottomSum === 3) {
+        alert(`Player ${player} wins!`);
     }
-    else {
-      break;
-    }
-  }
-  
-  if ( bottomSum === 3 ) {alert(`Player ${player} wins!`); return;}
-  
+
 }
 
 function checkForWin(player) {
-  // Check for horizontal win
-  for (let i = 0; i < 6; i++) {
-    for (let j = 0; j < 4; j++) {
-      if (table.rows[i].cells[j].children[0] &&
-        table.rows[i].cells[j].children[0].classList.contains(player) &&
-        table.rows[i].cells[j + 1].children[0] &&
-        table.rows[i].cells[j + 1].children[0].classList.contains(player) &&
-        table.rows[i].cells[j + 2].children[0] &&
-        table.rows[i].cells[j + 2].children[0].classList.contains(player) &&
-        table.rows[i].cells[j + 3].children[0] &&
-        table.rows[i].cells[j + 3].children[0].classList.contains(player)) {
-        alert(`Player ${player} wins!`);
-        return;
-      }
+    // Check for horizontal win
+    for (let i = 0; i < 6; i++) {
+        for (let j = 0; j < 4; j++) {
+            if (table.rows[i].cells[j].children[0] && table.rows[i].cells[j].children[0].classList.contains(player) && table.rows[i].cells[j + 1].children[0] && table.rows[i].cells[j + 1].children[0].classList.contains(player) && table.rows[i].cells[j + 2].children[0] && table.rows[i].cells[j + 2].children[0].classList.contains(player) && table.rows[i].cells[j + 3].children[0] && table.rows[i].cells[j + 3].children[0].classList.contains(player)) {
+                alert(`Player ${player} wins!`);
+                return;
+            }
+        }
     }
-  }
 
-  // Check for vertical win
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 7; j++) {
-      for (let j = 0; j < 4; j++) {
-        if (table.rows[i].cells[j].children[0] &&
-            table.rows[i].cells[j].children[0].classList.contains(player) &&
-            table.rows[i + 1].cells[j].children[0] &&
-            table.rows[i + 1].cells[j].children[0].classList.contains(player) &&
-            table.rows[i + 2].cells[j].children[0] &&
-            table.rows[i + 2].cells[j].children[0].classList.contains(player) &&
-            table.rows[i + 3].cells[j].children[0] &&
-            table.rows[i + 3].cells[j].children[0].classList.contains(player))
-          alert(`Player ${player} wins!`);
-        return;
-      }
+    // Check for vertical win
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 7; j++) {
+            if (table.rows[i].cells[j].children[0] && table.rows[i].cells[j].children[0].classList.contains(player) && table.rows[i + 1].cells[j].children[0] && table.rows[i + 1].cells[j].children[0].classList.contains(player) && table.rows[i + 2].cells[j].children[0] && table.rows[i + 2].cells[j].children[0].classList.contains(player) && table.rows[i + 3].cells[j].children[0] && table.rows[i + 3].cells[j].children[0].classList.contains(player)) alert(`Player ${player} wins!`);
+        }
     }
-  }
 
-  // Check for diagonal win
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 4; j++) {
-      if (table.rows[i].cells[j].children[0] &&
-          table.rows[i].cells[j].children[0].classList.contains(player) &&
-          table.rows[i + 1].cells[j + 1].children[0] &&
-          table.rows[i + 1].cells[j + 1].children[0].classList.contains(player) &&
-          table.rows[i + 2].cells[j + 2].children[0] &&
-          table.rows[i + 2].cells[j + 2].children[0].classList.contains(player) &&
-          table.rows[i + 3].cells[j + 3].children[0] &&
-          table.rows[i + 3].cells[j + 3].children[0].classList.contains(player)) {
-        alert(`Player ${player} wins!`);
-        return;
-      }
+    // Check for diagonal win
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 4; j++) {
+            if (table.rows[i].cells[j].children[0] && table.rows[i].cells[j].children[0].classList.contains(player) && table.rows[i + 1].cells[j + 1].children[0] && table.rows[i + 1].cells[j + 1].children[0].classList.contains(player) && table.rows[i + 2].cells[j + 2].children[0] && table.rows[i + 2].cells[j + 2].children[0].classList.contains(player) && table.rows[i + 3].cells[j + 3].children[0] && table.rows[i + 3].cells[j + 3].children[0].classList.contains(player)) {
+                alert(`Player ${player} wins!`);
+                return;
+            }
+        }
     }
-  }
 }
+
